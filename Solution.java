@@ -1,9 +1,21 @@
-import java.util.Scanner;
-
+import java.util.*;
 class Solution {
-    String s = "III";
     public int romanToInt(String s) {
-        List letterI = s.stream().split( "" ).filter(l->l.startsWith("I"));
-        System.out.println(letterI[0]);
+        int output = 0, value = 0;
+        Map<Character,Integer> romToInt = new HashMap<Character,Integer>();
+        romToInt.put('I',1);
+        romToInt.put('V',5);
+        romToInt.put('X',10);
+        romToInt.put('L',50);
+        romToInt.put('C',100);
+        romToInt.put('D',500);
+        romToInt.put('M',1000);
+
+        for (int i = s.length()-1; i >= 0; i--) {
+            value=romToInt.get(s.charAt(i));
+            if (4 * value < output) output -= value;
+            else output += value;
+        }
+        return output;
     }
-}
+    }
